@@ -1,38 +1,52 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Portada from "../views/Portada.vue";
-import SobreMi from "../views/SobreMi.vue";
-import Contacto from "../views/Contacto.vue";
-import Post from "../views/Post.vue";
-import Articulo from "../views/Articulo.vue";
 import NotFound from "../views/NotFound.vue";
+import Administrador from "../views/Administrador.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    component: Portada,
+    component: () => import("../views/Portada.vue"),
     name: "portada"
   },
   {
     path: "/sobremi",
-    component: SobreMi,
-    name: "sobremi"
+    component: () => import("../views/SobreMi.vue"),
+    name: "sobremi", 
+    alias: ["/acerca"]
   },
   {
     path: "/contacto",
-    component: Contacto
+    component: () => import("../views/Contacto.vue"),
+    alias: ["/contactame"]
   },
   {
     path: "/post",
-    component: Post,
+    component: () => import("../views/Post.vue"),
     children: [
       {
         path: ":articulo",
-        component: Articulo
+        component: () => import("../views/Articulo.vue")
       }
     ]
+  },
+  {
+    path: "/administrador/:nivel",
+    component: Administrador
+  },
+  {
+    path: "/home",
+    redirect: "/"
+  },
+  {
+    path: "/inicio",
+    redirect: "/"
+  },
+  {
+    path: "/portada",
+    redirect: "/"
   },
   {
     path: "*",
